@@ -6,6 +6,8 @@
         <p v-if="this.currentLocationWeather != null">Current Weather: {{ this.currentLocationWeather.current.weather[0].description }}</p>
         <p v-if="this.currentLocationDetails != null">Town: {{ this.currentLocationDetails.addresses[0].address.municipality }}</p>
         <p v-if="this.currentLocationDetails != null">Post Code: {{ this.currentLocationDetails.addresses[0].address.postalCode }}</p>
+        <!-- <img src="http://openweathermap.org/img/wn/" +  {{this.currentLocationWeather.current.weather[0].icon}} + "@2x.png"> -->
+        <img :src=this.weatherIcon>
     </div>
 </template>
 
@@ -19,7 +21,8 @@ export default {
         return {
             currentCoordinates: null,
             currentLocationWeather: null,
-            currentLocationDetails: null
+            currentLocationDetails: null,
+            weatherIcon: null
         }
     },
 
@@ -30,6 +33,7 @@ export default {
                      fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=' + apiKey.weatherKey )
                     .then(res => res.json())
                     .then(results => this.currentLocationWeather = results)
+                    .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
                     .then(() => this.getLocationName(position)) 
 
                     this.currentCoordinates = position.coords
@@ -43,8 +47,9 @@ export default {
             fetch("https://api.tomtom.com/search/2/reverseGeocode/" + position.coords.latitude + "%2C" + position.coords.longitude + ".json?key=" + apiKey.tomTomKey)
             .then(res => res.json())
             .then(results => this.currentLocationDetails = results)
-            
-        }
+        },
+
+
 
     },
 
