@@ -1,9 +1,11 @@
 <template>
     <div>
         <h2>The weather in your current location is: </h2>
-        <p v-if="this.currentLocation != null">Latitude: {{ this.currentLocation.latitude }}</p>
-        <p v-if="this.currentLocation != null">Longatude: {{ this.currentLocation.longitude }}</p>
+        <p v-if="this.currentCoordinates != null">Latitude: {{ this.currentCoordinates.latitude }}</p>
+        <p v-if="this.currentCoordinates != null">Longatude: {{ this.currentCoordinates.longitude }}</p>
         <p v-if="this.currentLocationWeather != null">Current Weather: {{ this.currentLocationWeather.current.weather[0].description }}</p>
+        <p v-if="this.currentLocationDetails != null">Town: {{ this.currentLocationDetails.addresses[0].address.municipality }}</p>
+        <p v-if="this.currentLocationDetails != null">Post Code: {{ this.currentLocationDetails.addresses[0].address.postalCode }}</p>
     </div>
 </template>
 
@@ -15,46 +17,39 @@ export default {
 
     data() {
         return {
-            currentLocation: null,
-            currentLocationWeather: null
+            currentCoordinates: null,
+            currentLocationWeather: null,
+            currentLocationDetails: null
         }
     },
 
     methods: {
-        getLocation() {
+        getCoordinates() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
-                     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=' + apiKey )
+                     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=' + apiKey.weatherKey )
                     .then(res => res.json())
                     .then(results => this.currentLocationWeather = results)
+                    .then(() => this.getLocationName(position)) 
 
-                    this.currentLocation = position.coords
+                    this.currentCoordinates = position.coords
                 })
             } else {
                 console.log("not working");
             }
         },
 
-        // setPosition(position) {
-        //      this.currentLocation = position.coords
-        //     // x.innerHTML = "Latitude: " + position.coords.latitude +
-        //     // "<br>Longitude: " + position.coords.longitude;
-        // }
-    },
-    mounted() {
-        this.getLocation()
-        
+        getLocationName(position) {
+            fetch("https://api.tomtom.com/search/2/reverseGeocode/" + position.coords.latitude + "%2C" + position.coords.longitude + ".json?key=" + apiKey.tomTomKey)
+            .then(res => res.json())
+            .then(results => this.currentLocationDetails = results)
+            
+        }
 
-        //  if (navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition((position) => {
-        //             console.log("position", position);
-        //             this.currentLocation = position.coords
-        //             console.log(this.currentLocation);
-        //         })
-        //     } else {
-        //         console.log("not working");
-        //     }
-        // this.currentLocation="test"
+    },
+
+    mounted() {
+        this.getCoordinates()
     }
 }
 
