@@ -2,7 +2,7 @@
     <div>
         <h2 v-if="this.currentLocationDetails != null" >The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
         <!-- <p v-if="this.currentCoordinates != null">Latitude: {{ this.currentCoordinates.latitude }}</p>
-        <p v-if="this.currentCoordinates != null">Longatude: {{ this.currentCoordinates.longitude }}</p> -->
+        <p v-if="this.currentCoordinates != null">Longitude: {{ this.currentCoordinates.longitude }}</p> -->
         <h2 v-if="this.currentLocationWeather != null"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
         <img :src=this.weatherIcon class="image-fit">
         
@@ -10,6 +10,20 @@
         <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
+        <ul v-if="this.currentLocationWeather != null">
+            <li v-for="(item) in this.currentLocationWeather.daily" :key="item.dt">
+                <h2> date: {{ convertDateFromTimeStamp(item.dt) }}</h2>
+                <h2> Morning Temperature: {{ item.temp.morn }}°C</h2>
+                <h2> Day Temperature: {{ item.temp.day }}°C</h2>
+                <h2> Night Temperature: {{ item.temp.night }}°C</h2>
+                <h2> Weather: {{ item.weather[0].description }}</h2>
+            </li>
+        </ul>
+        <!-- <h2 v-if="this.currentLocationWeather != null"> Morning Temperature: {{ this.currentLocationWeather.daily[1].temp.morn }}°C</h2>
+        <h2 v-if="this.currentLocationWeather != null"> Day Temperature: {{ this.currentLocationWeather.daily[1].temp.day }}°C</h2>
+        <h2 v-if="this.currentLocationWeather != null"> Night Temperature: {{ this.currentLocationWeather.daily[1].temp.night }}°C</h2>
+        <h2 v-if="this.currentLocationWeather != null"> Weather: {{ this.currentLocationWeather.daily[1].weather[0].description }}</h2> -->
+        
         <!-- <p v-if="this.currentLocationDetails != null">Town: </p>
         <p v-if="this.currentLocationDetails != null">Post Code: </p> -->
         <!-- <img src="http://openweathermap.org/img/wn/" +  {{this.currentLocationWeather.current.weather[0].icon}} + "@2x.png"> -->
@@ -59,8 +73,12 @@ export default {
             const date = new Date(path * 1000)
             const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"})
             return time
+        },
+        convertDateFromTimeStamp(path) {
+            const date = new Date(path * 1000)
+            const formattedDate = date.toLocaleDateString()
+            return formattedDate
         }
-
 
 
     },
