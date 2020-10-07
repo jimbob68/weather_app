@@ -10,13 +10,13 @@
         <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
-        <ul v-if="this.currentLocationWeather != null">
-            <li v-for="(item) in this.currentLocationWeather.daily" :key="item.dt">
-                <h2> date: {{ convertDateFromTimeStamp(item.dt) }}</h2>
-                <h2> Morning Temperature: {{ item.temp.morn }}°C</h2>
-                <h2> Day Temperature: {{ item.temp.day }}°C</h2>
-                <h2> Night Temperature: {{ item.temp.night }}°C</h2>
-                <h2> Weather: {{ item.weather[0].description }}</h2>
+        <ul v-if="this.currentLocationWeather != null" :refresh='refresh'>
+            <li v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
+                <button v-on:click="toggleIsVisible(index)"> date: {{ convertDateFromTimeStamp(item.dt) }}</button>
+                <h2 v-if="isVisible[index] === true"> Morning Temperature: {{ item.temp.morn }}°C</h2>
+                <h2 v-if="isVisible[index] === true"> Day Temperature: {{ item.temp.day }}°C</h2>
+                <h2 v-if="isVisible[index] === true"> Night Temperature: {{ item.temp.night }}°C</h2>
+                <h2 v-if="isVisible[index] === true"> Weather: {{ item.weather[0].description }}</h2>
             </li>
         </ul>
         <!-- <h2 v-if="this.currentLocationWeather != null"> Morning Temperature: {{ this.currentLocationWeather.daily[1].temp.morn }}°C</h2>
@@ -42,7 +42,10 @@ export default {
             currentCoordinates: null,
             currentLocationWeather: null,
             currentLocationDetails: null,
-            weatherIcon: null
+            weatherIcon: null,
+            isVisible: [false, false, false, false, false, false, false, false],
+            refresh: false
+
         }
     },
 
@@ -78,8 +81,24 @@ export default {
             const date = new Date(path * 1000)
             const formattedDate = date.toLocaleDateString()
             return formattedDate
-        }
+        },
+        toggleIsVisible(index) {
+            const tempIsVisible = this.isVisible
 
+            if (tempIsVisible[index] === true){
+                tempIsVisible[index] = false
+            } else {
+                tempIsVisible[index] = true
+            }
+
+            this.isVisible = tempIsVisible
+            this.refreshPage()
+        },
+
+        refreshPage() {
+            this.refresh = !this.refresh
+        }
+            
 
     },
 
