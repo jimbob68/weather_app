@@ -1,16 +1,16 @@
 <template>
-    <div>
-        <h2 v-if="this.currentLocationDetails != null" >The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
+    <div class="background-color">
+        <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
         <!-- <p v-if="this.currentCoordinates != null">Latitude: {{ this.currentCoordinates.latitude }}</p>
         <p v-if="this.currentCoordinates != null">Longitude: {{ this.currentCoordinates.longitude }}</p> -->
-        <h2 v-if="this.currentLocationWeather != null"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
+        <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
         <img :src=this.weatherIcon class="image-fit">
         
         <h2 v-if="this.currentLocationWeather != null"> Temperature: {{ this.currentLocationWeather.current.temp  }}°C</h2>
         <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
-        <ul v-if="this.currentLocationWeather != null" :refresh='refresh'>
+        <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
             <li v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
                 <button v-on:click="toggleIsVisible(index)"> date: {{ convertDateFromTimeStamp(item.dt) }}</button>
                 <h2 v-if="isVisible[index] === true"> Morning Temperature: {{ item.temp.morn }}°C</h2>
@@ -113,8 +113,25 @@ export default {
 </script>
 
 <style scoped>
+
 .image-fit{
     height: 25%;
     width: 25%;
+    margin: 0px;
+}
+.dates-list{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.background-color{
+    background-color:aquamarine;
+    padding-bottom: 10px;
+}
+.current-weather{
+    margin-bottom: 0px;
+}
+.location-title{
+    padding-top: 10px;
 }
 </style>

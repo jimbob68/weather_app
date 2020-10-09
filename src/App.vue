@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Hello World!</h1>
+    <h1 class="title">Hello World!</h1>
     <current-location-weather />
   </div>
 </template>
@@ -20,10 +20,18 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* clear: both; */
+  background-color:bisque;
+  padding-top: 10px;
+}
+body{
+  margin: 0px !important;
+}
+.title{
+  
 }
 </style>
