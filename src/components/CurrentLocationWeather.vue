@@ -1,6 +1,7 @@
 <template>
     <div class="background-color">
         <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
+        <h2 v-if="this.searchTerm != null">The current weather in {{ this.searchTerm }} is:</h2>
     
         <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
         <img :src=this.weatherIcon class="image-fit">
@@ -26,6 +27,7 @@
 <script>
 
 import apiKey from "../apikey.js"
+import { eventBus } from "../main.js"
 
 export default {
 
@@ -36,7 +38,8 @@ export default {
             currentLocationDetails: null,
             weatherIcon: null,
             isVisible: [false, false, false, false, false, false, false, false],
-            refresh: false
+            refresh: false,
+            searchTerm: null
 
         }
     },
@@ -96,6 +99,11 @@ export default {
 
     mounted() {
         this.getCoordinates()
+        eventBus.$on("searched-weather-data", ({searchLocationWeather, searchTerm}) => {
+            this.currentLocationWeather = searchLocationWeather
+            this.currentLocationDetails = null
+            this.searchTerm = searchTerm
+        })
     }
 }
 

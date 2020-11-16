@@ -8,6 +8,7 @@
 <script>
 
 import apiKey from "../apikey.js"
+import { eventBus } from '../main.js'
 export default {
   name: 'SearchLocation',
   data() {
@@ -28,6 +29,7 @@ export default {
           .then(res => res.json())
           .then(results => this.searchLocationWeather = results)
           .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
+          .then(() => eventBus.$emit("searched-weather-data", {searchLocationWeather: this.searchLocationWeather, searchTerm: this.searchTerm}))
       }
   }
 
