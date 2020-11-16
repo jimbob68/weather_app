@@ -102,7 +102,7 @@ export default {
         eventBus.$on("searched-weather-data", ({searchLocationWeather, searchTerm}) => {
             this.currentLocationWeather = searchLocationWeather
             this.currentLocationDetails = null
-            this.searchTerm = searchTerm
+            this.searchTerm = searchTerm[0].toUpperCase() + searchTerm.substring(1)
         })
     }
 }
