@@ -1,17 +1,21 @@
 <template>
   <div id="app">
     <h1 class="title">Hello World!</h1>
+    <search-weather-location />
     <current-location-weather />
+    
   </div>
 </template>
 
 <script>
 
 import CurrentLocationWeather from './components/CurrentLocationWeather.vue'
+import SearchWeatherLocation from './components/SearchWeatherLocation.vue'
 export default {
   name: 'App',
   components: {
-    "current-location-weather": CurrentLocationWeather
+    "current-location-weather": CurrentLocationWeather,
+    "search-weather-location" : SearchWeatherLocation
   }
 
 }

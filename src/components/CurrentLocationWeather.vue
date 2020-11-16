@@ -1,8 +1,7 @@
 <template>
     <div class="background-color">
         <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
-        <!-- <p v-if="this.currentCoordinates != null">Latitude: {{ this.currentCoordinates.latitude }}</p>
-        <p v-if="this.currentCoordinates != null">Longitude: {{ this.currentCoordinates.longitude }}</p> -->
+    
         <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
         <img :src=this.weatherIcon class="image-fit">
         
@@ -20,14 +19,6 @@
                 <h2 v-if="isVisible[index] === true" id="weather-description"> Weather: {{ item.weather[0].description }}</h2>
             </li>
         </ul>
-        <!-- <h2 v-if="this.currentLocationWeather != null"> Morning Temperature: {{ this.currentLocationWeather.daily[1].temp.morn }}°C</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Day Temperature: {{ this.currentLocationWeather.daily[1].temp.day }}°C</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Night Temperature: {{ this.currentLocationWeather.daily[1].temp.night }}°C</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Weather: {{ this.currentLocationWeather.daily[1].weather[0].description }}</h2> -->
-        
-        <!-- <p v-if="this.currentLocationDetails != null">Town: </p>
-        <p v-if="this.currentLocationDetails != null">Post Code: </p> -->
-        <!-- <img src="http://openweathermap.org/img/wn/" +  {{this.currentLocationWeather.current.weather[0].icon}} + "@2x.png"> -->
         
     </div>
 </template>
