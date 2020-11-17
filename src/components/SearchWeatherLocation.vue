@@ -21,15 +21,24 @@ export default {
   },
   methods: {
       submit() {
-          fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=GB&municipalitySubdivision=" + this.searchTerm + "&key=" + apiKey.tomTomKey )
-          .then(res => res.json())
-          .then(results => this.searchLocationResults = results)
-          .then(() => console.log(this.searchLocationResults.results[0].position))
-          .then(() => fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + apiKey.weatherKey ))
+            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=GB& municipalitySubdivision=" + this.searchTerm + "&key=" + apiKey.tomTomKey )
+            .then(res => res.json())
+            .then(results => this.searchLocationResults = results)
+            .then(() => {
+                if(this.searchLocationResults.results.length === 0) {
+                    alert("Please enter a valid location.")
+                } else {
+                    this.conditionalFetch() 
+                }
+            })
+          
+      },
+      conditionalFetch(){
+          fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + apiKey.weatherKey )
           .then(res => res.json())
           .then(results => this.searchLocationWeather = results)
           .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
-          .then(() => eventBus.$emit("searched-weather-data", {searchLocationWeather: this.searchLocationWeather, searchTerm: this.searchTerm}))
+          .then(() => eventBus.$emit("searched-weather-data", {searchLocationWeather: this.searchLocationWeather, searchLocationResults: this.searchLocationResults}))
       }
   }
 
