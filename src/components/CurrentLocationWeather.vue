@@ -2,12 +2,12 @@
     <div class="background-color">
         <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
         <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
-
-        <select v-if="this.searchLocation" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
+    <div v-if="this.searchLocation">
+        <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
             <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
             <option v-for="location in this.searchLocation.results" v-bind:value="location">{{ location.address.freeformAddress }}</option>
         </select>
-    
+    </div>
         <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
         <img :src=this.weatherIcon class="image-fit">
         
@@ -114,11 +114,12 @@ export default {
 
     mounted() {
         this.getCoordinates()
-        eventBus.$on("searched-weather-data", ({searchLocationWeather, searchLocationResults}) => {
+        eventBus.$on("searched-weather-data", ({searchLocationWeather, searchLocationResults, weatherIcon}) => {
             this.currentLocationWeather = searchLocationWeather
             this.currentLocationDetails = null
             this.searchLocation = searchLocationResults
             this.searchLocationName = searchLocationResults.results[0].address.freeformAddress
+            this.weatherIcon = weatherIcon
         })
     }
 }

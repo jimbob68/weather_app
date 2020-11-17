@@ -42,7 +42,7 @@ export default {
           .then(res => res.json())
           .then(results => this.searchLocationWeather = results)
           .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
-          .then(() => eventBus.$emit("searched-weather-data", {searchLocationWeather: this.searchLocationWeather, searchLocationResults: this.searchLocationResults}))
+          .then(() => eventBus.$emit("searched-weather-data", {searchLocationWeather: this.searchLocationWeather, searchLocationResults: this.searchLocationResults, weatherIcon: this.weatherIcon}))
       }
 
   }
