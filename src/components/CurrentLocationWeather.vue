@@ -86,17 +86,19 @@ export default {
             const date = new Date(path * 1000)
               let timeZoneString = ""
             if(this.selectedLocation.position){
-                console.log(this.selectedLocation.position.lat)
+                // console.log("1", this.selectedLocation.position.lat)
                 timeZoneString = tzlookup(this.selectedLocation.position.lat, this.selectedLocation.position.lon)
             } else if(this.searchLocation) { 
-                console.log(this.searchLocation.results[0])
-                // timeZoneString = tzlookup(this.searchLocation.results[0].lat, this.searchLocation.results[0].lon)
+                // console.log("2", this.searchLocation.results[0])
+                timeZoneString = tzlookup(this.searchLocation.results[0].position.lat, this.searchLocation.results[0].position.lon)
             } else {
                 timeZoneString = tzlookup(this.currentCoordinates.latitude, this.currentCoordinates.longitude)
-                // console.log(this.currentCoordinates)
+                // console.log("3", this.currentCoordinates.latitude)
             }
-            console.log(timeZoneString)
+            // console.log(timeZoneString)
             const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit", timeZone: timeZoneString})
+            // const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"})
+
             return time
         },
         convertDateFromTimeStamp(path) {
