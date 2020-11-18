@@ -1,5 +1,9 @@
 <template>
     <form @submit.prevent>
+        <label>Search a country: </label>
+        <select v-model="selectedCountry">
+            <option v-for="country in this.countriesData" v-bind:value="country">{{ country.name }}</option>
+        </select>
         <label>Search a location: </label>
         <input v-model="searchTerm" />
         <button v-on:click="submit">Submit</button>
@@ -17,12 +21,14 @@ export default {
           searchTerm: "",
           searchLocationResults: null,
           searchLocationWeather: null,
-          weatherIcon: null
+          weatherIcon: null,
+          countriesData: null,
+          selectedCountry: null
       }
   },
   methods: {
       submit() {
-            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=GB&municipalitySubdivision=" + this.searchTerm + "&key=" + apiKey.tomTomKey )
+            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.alpha3Code + "&municipalitySubdivision=" + this.searchTerm + "&key=" + apiKey.tomTomKey )
             .then(res => res.json())
             .then(results => {
                 this.searchLocationResults = results
@@ -45,6 +51,11 @@ export default {
           .then(() => eventBus.$emit("searched-weather-data", {searchLocationWeather: this.searchLocationWeather, searchLocationResults: this.searchLocationResults, weatherIcon: this.weatherIcon}))
       }
 
+  },
+  mounted() {
+      fetch("https://restcountries.eu/rest/v2/all")
+        .then(res => res.json())
+        .then(results => this.countriesData = results)
   }
 
 }

@@ -47,7 +47,6 @@ export default {
             searchLocationName: null,
             searchLocation: null,
             selectedLocation: "Other locations for this search:"
-
         }
     },
 
