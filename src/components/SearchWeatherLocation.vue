@@ -2,7 +2,7 @@
     <form @submit.prevent>
         <label>Search a country: </label>
         <select v-model="selectedCountry">
-            <option v-for="country in this.countriesData" v-bind:value="country">{{ country.name }}</option>
+            <option v-for="(country, index) in this.countriesData" v-bind:value="country" v-bind:key="index">{{ country.name }}</option>
         </select>
         <label>Search a location: </label>
         <input v-model="searchTerm" />

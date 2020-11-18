@@ -5,7 +5,7 @@
     <div v-if="this.searchLocation">
         <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
             <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
-            <option v-for="location in this.searchLocation.results" v-bind:value="location">{{ location.address.freeformAddress }}</option>
+            <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
         </select>
     </div>
         <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
@@ -33,6 +33,7 @@
 
 import apiKey from "../apikey.js"
 import { eventBus } from "../main.js"
+const tzlookup = require("tz-lookup")
 
 export default {
 
@@ -83,7 +84,19 @@ export default {
 
         convertTimeFromTimeStamp(path) {
             const date = new Date(path * 1000)
-            const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"})
+              let timeZoneString = ""
+            if(this.selectedLocation.position){
+                console.log(this.selectedLocation.position.lat)
+                timeZoneString = tzlookup(this.selectedLocation.position.lat, this.selectedLocation.position.lon)
+            } else if(this.searchLocation) { 
+                console.log(this.searchLocation.results[0])
+                // timeZoneString = tzlookup(this.searchLocation.results[0].lat, this.searchLocation.results[0].lon)
+            } else {
+                timeZoneString = tzlookup(this.currentCoordinates.latitude, this.currentCoordinates.longitude)
+                // console.log(this.currentCoordinates)
+            }
+            console.log(timeZoneString)
+            const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit", timeZone: timeZoneString})
             return time
         },
         convertDateFromTimeStamp(path) {
