@@ -86,18 +86,13 @@ export default {
             const date = new Date(path * 1000)
               let timeZoneString = ""
             if(this.selectedLocation.position){
-                // console.log("1", this.selectedLocation.position.lat)
                 timeZoneString = tzlookup(this.selectedLocation.position.lat, this.selectedLocation.position.lon)
             } else if(this.searchLocation) { 
-                // console.log("2", this.searchLocation.results[0])
                 timeZoneString = tzlookup(this.searchLocation.results[0].position.lat, this.searchLocation.results[0].position.lon)
             } else {
                 timeZoneString = tzlookup(this.currentCoordinates.latitude, this.currentCoordinates.longitude)
-                // console.log("3", this.currentCoordinates.latitude)
             }
-            // console.log(timeZoneString)
             const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit", timeZone: timeZoneString})
-            // const time = date.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"})
 
             return time
         },
@@ -134,6 +129,7 @@ export default {
             this.searchLocation = searchLocationResults
             this.searchLocationName = searchLocationResults.results[0].address.freeformAddress
             this.weatherIcon = weatherIcon
+            this.selectedLocation = "Other locations for this search:"
         })
     }
 }

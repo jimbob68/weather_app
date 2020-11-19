@@ -43,7 +43,6 @@ export default {
           
       },
       conditionalFetch(){
-          console.log("searchLocationResults", this.searchLocationResults)
           fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + apiKey.weatherKey )
           .then(res => res.json())
           .then(results => this.searchLocationWeather = results)
