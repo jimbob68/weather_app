@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <h1 class="title">Hello World!</h1>
+    <h1 class="title">World Wide Weather</h1>
+    <h3>Welcome to the only weather app you'll ever need!
+    Find out the weather from any country in the world!</h3>
     <search-weather-location />
     <current-location-weather />
     
@@ -31,9 +33,14 @@ export default {
   /* clear: both; */
   background-color:bisque;
   padding-top: 10px;
+  
 }
 body{
   margin: 0px !important;
 }
+.title  {
+  color:rebeccapurple;
+}
+
 
 </style>

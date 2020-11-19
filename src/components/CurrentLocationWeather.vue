@@ -1,5 +1,6 @@
 <template>
     <div class="background-color">
+        <div class="current-weather-details-container">
         <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
         <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
     <div v-if="this.searchLocation">
@@ -15,10 +16,11 @@
         <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
         <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
-        <h2>Click on Date for 7 Day Forecast:</h2>
+        </div>
+        <h2 class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
             <li v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
-                <button v-on:click="toggleIsVisible(index)"><a href="#weather-description"> date: {{ convertDateFromTimeStamp(item.dt) }}</a></button>
+                <button class="date-button" v-on:click="toggleIsVisible(index)"><a href="#weather-description">{{ convertDateFromTimeStamp(item.dt) }}</a></button>
                 <h2 v-if="isVisible[index] === true"> Morning Temperature: {{ item.temp.morn }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Day Temperature: {{ item.temp.day }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Night Temperature: {{ item.temp.night }}°C</h2>
@@ -154,6 +156,11 @@ export default {
 .background-color{
     background-color:aquamarine;
     padding-bottom: 10px;
+    padding-top: 20px;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    
 }
 .current-weather{
     margin-bottom: 0px;
@@ -161,4 +168,31 @@ export default {
 .location-title{
     padding-top: 10px;
 }
+.current-weather-details-container {
+    border: solid 1px gray;
+    /* margin: 0px 20px; */
+    width: fit-content;
+    padding: 0px 15px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+
+}
+.date-button, a {
+    margin-top: 15px;
+    font-size: 20px;
+    background-color:rebeccapurple;
+    color: white;
+    border: solid 1px ridge;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.select-day-forecast-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 </style>

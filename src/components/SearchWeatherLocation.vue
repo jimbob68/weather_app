@@ -1,13 +1,16 @@
 <template>
-    <form @submit.prevent>
-        <label>Search a country: </label>
-        <select v-model="selectedCountry">
+<div class="form-container">
+    <form @submit.prevent >
+        <label class="form-label">Search a country: </label>
+        <select v-model="selectedCountry" required>
             <option v-for="(country, index) in this.countriesData" v-bind:value="country" v-bind:key="index">{{ country.name }}</option>
         </select>
-        <label>Search a location: </label>
+        <label class="form-label">Search a location: </label>
         <input v-model="searchTerm" />
-        <button v-on:click="submit">Submit</button>
+        <br/>
+        <button v-on:click="submit" class="form-button">Submit</button>
     </form>
+    </div>
 </template>
 
 <script>
@@ -61,5 +64,35 @@ export default {
 </script>
 
 <style scoped>
+.form-container {
+    /* margin-bottom: 20px; */
+    background-color: aquamarine;
+    padding-top: 15px;
+}
+.form-label {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 20px;
 
+}
+.form-button {
+    margin-top: 15px;
+    font-size: 20px;
+    background-color:rebeccapurple;
+    color: white;
+    border: solid 1px ridge;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.form-button:hover {
+    margin-top: 15px;
+    font-size: 20px;
+    color:rebeccapurple;
+    background-color: white;
+    border: solid 1px ridge;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
 </style>
