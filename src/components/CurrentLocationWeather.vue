@@ -19,7 +19,7 @@
         </div>
         <h2 class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
-            <li v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
+            <li v-bind:class="{dateClicked: isVisible[index]}" v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
                 <button class="date-button" v-on:click="toggleIsVisible(index)"><a href="#weather-description">{{ convertDateFromTimeStamp(item.dt) }}</a></button>
                 <h2 v-if="isVisible[index] === true"> Morning Temperature: {{ item.temp.morn }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Day Temperature: {{ item.temp.day }}°C</h2>
@@ -169,12 +169,13 @@ export default {
     padding-top: 10px;
 }
 .current-weather-details-container {
-    border: solid 1px gray;
+    border: solid 1px rebeccapurple;
     /* margin: 0px 20px; */
     width: fit-content;
     padding: 0px 15px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 10px;
     
     
 
@@ -193,6 +194,15 @@ export default {
 .select-day-forecast-text {
     font-size: 20px;
     font-weight: bold;
+}
+.dateClicked {
+    border-top: solid 1px gray;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 15px;
+    margin-top: 15px;
+
 }
 
 </style>
