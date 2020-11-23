@@ -31,6 +31,8 @@ export default {
   },
   methods: {
       submit() {
+          console.log("weatherkey2", process.env.weatherKey)
+          console.log("tomtomkey2", process.env.tomTomKey)
             fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.alpha3Code + "&municipalitySubdivision=" + this.searchTerm + "&key=" + process.env.tomTomKey )
             .then(res => res.json())
             .then(results => {
@@ -55,6 +57,8 @@ export default {
 
   },
   mounted() {
+      console.log("weatherkey", process.env.weatherKey)
+      console.log("tomtomkey", process.env.tomTomKey)
       fetch("https://restcountries.eu/rest/v2/all")
         .then(res => res.json())
         .then(results => this.countriesData = results)
