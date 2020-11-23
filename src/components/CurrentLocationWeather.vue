@@ -1,30 +1,31 @@
 <template>
     <div class="background-color">
         <div class="current-weather-details-container">
-        <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
-        <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
-    <div v-if="this.searchLocation">
-        <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
-            <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
-            <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
-        </select>
-    </div>
-        <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
-        <img :src=this.weatherIcon class="image-fit">
-        
-        <h2 v-if="this.currentLocationWeather != null"> Temperature: {{ this.currentLocationWeather.current.temp  }}°C</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
+            <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
+            <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
+            <div v-if="this.searchLocation">
+                <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
+                    <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
+                    <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
+                </select>
+            </div>
+            <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
+            <img :src=this.weatherIcon class="image-fit">
+            
+            <h2 v-if="this.currentLocationWeather != null"> Temperature: {{ this.currentLocationWeather.current.temp  }}°C</h2>
+            <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
+            <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
+            <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
         </div>
-        <h2 class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
+        <h2 class="select-day-forecast-text">Click on a Date for the Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
             <li v-bind:class="{dateClicked: isVisible[index]}" v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
                 <button class="date-button" v-on:click="toggleIsVisible(index)"><a href="#weather-description">{{ convertDateFromTimeStamp(item.dt) }}</a></button>
+                <h2 v-if="isVisible[index] === true" id="weather-description"> Weather: {{ item.weather[0].description }}</h2>
                 <h2 v-if="isVisible[index] === true"> Morning Temperature: {{ item.temp.morn }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Day Temperature: {{ item.temp.day }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Night Temperature: {{ item.temp.night }}°C</h2>
-                <h2 v-if="isVisible[index] === true" id="weather-description"> Weather: {{ item.weather[0].description }}</h2>
+                
             </li>
         </ul>
         
