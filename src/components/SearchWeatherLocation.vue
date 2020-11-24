@@ -31,9 +31,9 @@ export default {
   },
   methods: {
       submit() {
-            console.log("weatherkey2", process.env.weatherKey)
-            console.log("tomtomkey2", process.env.tomTomKey)
-            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.alpha3Code + "&municipalitySubdivision=" + this.searchTerm + "&key=" + process.env.tomTomKey )
+            // console.log("weatherkey2", process.env.weatherKey)
+            // console.log("tomtomkey2", process.env.tomTomKey)
+            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.alpha3Code + "&municipalitySubdivision=" + this.searchTerm + "&key=" + process.env.VUE_APP_tomTomKey )
             .then(res => res.json())
             .then(results => {
                 this.searchLocationResults = results
@@ -48,7 +48,7 @@ export default {
           
       },
       conditionalFetch(){
-          fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + process.env.weatherKey )
+          fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + process.env.VUE_APP_weatherKey )
           .then(res => res.json())
           .then(results => this.searchLocationWeather = results)
           .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
@@ -57,8 +57,8 @@ export default {
 
   },
   mounted() {
-      console.log("weatherkey", process.env.weatherKey)
-      console.log("tomtomkey", process.env.tomTomKey)
+    //   console.log("weatherkey", process.env.weatherKey)
+    //   console.log("tomtomkey", process.env.tomTomKey)
       fetch("https://restcountries.eu/rest/v2/all")
         .then(res => res.json())
         .then(results => this.countriesData = results)
