@@ -181,7 +181,7 @@ export default {
     
 
 }
-.date-button, a {
+.date-button a {
     margin-top: 15px;
     font-size: 20px;
     background-color:rebeccapurple;
