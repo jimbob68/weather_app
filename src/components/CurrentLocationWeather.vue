@@ -184,7 +184,6 @@ export default {
 .date-button {
     margin-top: 15px;
     background-color:rebeccapurple;
-    color: white;
     border: ridge 1px white;
     border-radius: 10px;
     padding: 5px 10px;
@@ -195,6 +194,7 @@ a {
     text-decoration: none;
     background-color:rebeccapurple;
     font-size: 20px;
+    color: white;
 }
 .select-day-forecast-text {
     font-size: 20px;
