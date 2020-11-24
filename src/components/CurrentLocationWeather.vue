@@ -34,7 +34,7 @@
 
 <script>
 
-// import apiKey from "../apikey.js"
+import apiKey from "../apikey.js"
 import { eventBus } from "../main.js"
 const tzlookup = require("tz-lookup")
 
