@@ -21,10 +21,11 @@
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
             <li v-bind:class="{dateClicked: isVisible[index]}" v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
                 <button class="date-button" v-on:click="toggleIsVisible(index)"><a href="#weather-description">{{ convertDateFromTimeStamp(item.dt) }}</a></button>
+                 <h2 v-if="isVisible[index] === true" id="weather-description"> Weather: {{ item.weather[0].description }}</h2>
                 <h2 v-if="isVisible[index] === true"> Morning Temperature: {{ item.temp.morn }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Day Temperature: {{ item.temp.day }}°C</h2>
                 <h2 v-if="isVisible[index] === true"> Night Temperature: {{ item.temp.night }}°C</h2>
-                <h2 v-if="isVisible[index] === true" id="weather-description"> Weather: {{ item.weather[0].description }}</h2>
+               
             </li>
         </ul>
         
