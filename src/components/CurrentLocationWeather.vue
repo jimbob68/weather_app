@@ -16,7 +16,7 @@
             <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
             <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
             <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
-            <button class="form-button"><a href='/'>Home</a></button>
+            <a href='/' class="home-button">Home</a>
         </div>
         <h2 class="select-day-forecast-text">Click on a Date for the Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
@@ -210,36 +210,23 @@ export default {
     margin-top: 15px;
 
 }
-.form-button {
+.home-button {
     margin-top: 15px;
     font-size: 20px;
     background-color:rebeccapurple;
     color: white;
     border: solid 1px ridge;
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 7px 12px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
 }
-.form-button:hover {
-    margin-top: 15px;
-    font-size: 20px;
+.home-button:hover {
     color:rebeccapurple;
     background-color: white;
-    border: solid 1px ridge;
-    border-radius: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
+    border: solid 1px rebeccapurple;
 }
-.form-button > a {
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-    
-}
-.form-button > a:hover {
-    color:rebeccapurple;
-}
-
 
 </style>

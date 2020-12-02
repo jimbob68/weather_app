@@ -57,8 +57,6 @@ export default {
 
   },
   mounted() {
-    //   console.log("weatherkey", process.env.weatherKey)
-    //   console.log("tomtomkey", process.env.tomTomKey)
       fetch("https://restcountries.eu/rest/v2/all")
         .then(res => res.json())
         .then(results => this.countriesData = results)
@@ -69,7 +67,6 @@ export default {
 
 <style scoped>
 .form-container {
-    /* margin-bottom: 20px; */
     background-color: aquamarine;
     padding-top: 15px;
 }
@@ -88,15 +85,12 @@ export default {
     border-radius: 10px;
     padding: 5px 10px;
     cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .form-button:hover {
-    margin-top: 15px;
-    font-size: 20px;
     color:rebeccapurple;
     background-color: white;
     border: solid 1px ridge;
-    border-radius: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
 }
+
 </style>
