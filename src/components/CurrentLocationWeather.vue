@@ -1,21 +1,23 @@
 <template>
     <div class="background-color">
         <div class="current-weather-details-container">
-        <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
-        <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
-    <div v-if="this.searchLocation">
-        <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
-            <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
-            <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
-        </select>
-    </div>
-        <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
-        <img :src=this.weatherIcon class="image-fit">
-        
-        <h2 v-if="this.currentLocationWeather != null"> Temperature: {{ this.currentLocationWeather.current.temp  }}°C</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
-        <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
+            <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
+            <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
+            <div v-if="this.searchLocation">
+                <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
+                    <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
+                    <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
+                </select>
+                
+            </div>
+            <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
+            <img :src=this.weatherIcon class="image-fit">
+            
+            <h2 v-if="this.currentLocationWeather != null"> Temperature: {{ this.currentLocationWeather.current.temp  }}°C</h2>
+            <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
+            <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
+            <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
+            <button class="form-button"><a href='/'>Home</a></button>
         </div>
         <h2 class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
@@ -190,7 +192,7 @@ export default {
     cursor: pointer;
     
 }
-a {
+.date-button > a {
     text-decoration: none;
     background-color:rebeccapurple;
     font-size: 20px;
@@ -208,6 +210,36 @@ a {
     padding: 0px 15px;
     margin-top: 15px;
 
+}
+.form-button {
+    margin-top: 15px;
+    font-size: 20px;
+    background-color:rebeccapurple;
+    color: white;
+    border: solid 1px ridge;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.form-button:hover {
+    margin-top: 15px;
+    font-size: 20px;
+    color:rebeccapurple;
+    background-color: white;
+    border: solid 1px ridge;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.form-button > a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    
+}
+.form-button > a:hover {
+    color:rebeccapurple;
 }
 
 </style>
