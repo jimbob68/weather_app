@@ -83,24 +83,11 @@ export default {
     border-radius: 10px;
     padding: 5px 10px;
     cursor: pointer;
-    
+    font-family: Arial, Helvetica, sans-serif;
 }
 .form-button:hover {
-    margin-top: 15px;
-    font-size: 20px;
     color:rebeccapurple;
     background-color: white;
     border: solid 1px ridge;
-    border-radius: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-a {
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-}
-a:hover {
-    color:rebeccapurple;
 }
 </style>
