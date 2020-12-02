@@ -174,7 +174,7 @@ export default {
     border: solid 1px rebeccapurple;
     /* margin: 0px 20px; */
     width: fit-content;
-    padding: 0px 15px;
+    padding: 0px 15px 25px 15px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
