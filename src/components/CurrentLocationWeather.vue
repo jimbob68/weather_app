@@ -1,7 +1,7 @@
 <template>
     <div class="background-color">
 
-        <div v-if="this.currentLocationWeather === null">
+        <div class="loading-cube" v-if="this.currentLocationWeather === null">
             <cube-spin/>
         </div>
 
@@ -25,7 +25,7 @@
             <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
             <p v-if="this.searchLocation != null"><a href='/' class="home-button">Home</a></p>
         </div>
-        <h2 class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
+        <h2 v-if="this.currentLocationWeather != null" class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
             <li v-bind:class="{dateClicked: isVisible[index]}" v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
                 <button class="date-button" v-on:click="toggleIsVisible(index)"><a href="#weather-description">{{ convertDateFromTimeStamp(item.dt) }}</a></button>
@@ -267,6 +267,12 @@ export default {
     color:rebeccapurple;
     background-color: white;
     border: solid 1px rebeccapurple;
+}
+.loading-cube {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: fit-content;
 }
 
 </style>
