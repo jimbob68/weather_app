@@ -1,5 +1,10 @@
 <template>
     <div class="background-color">
+
+        <div id="app">
+            <cube-spin/>
+        </div>
+
         <div class="current-weather-details-container">
             <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
             <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
@@ -38,6 +43,7 @@
 
 import apiKey from "../apikey.js"
 import { eventBus } from "../main.js"
+import CubeSpin from '../../node_modules/vue-loading-spinner/src/components/RotateSquare2.vue'
 const tzlookup = require("tz-lookup")
 
 export default {
@@ -54,6 +60,9 @@ export default {
             searchLocation: null,
             selectedLocation: "Other locations for this search:"
         }
+    },
+    components: {
+      "cube-spin": CubeSpin
     },
 
     methods: {
