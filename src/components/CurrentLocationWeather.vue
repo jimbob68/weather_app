@@ -178,9 +178,6 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
-    
-    
-
 }
 .date-button {
     margin-top: 15px;
@@ -189,7 +186,6 @@ export default {
     border-radius: 10px;
     padding: 5px 10px;
     cursor: pointer;
-    
 }
 .date-button > a {
     text-decoration: none;
@@ -208,7 +204,6 @@ export default {
     margin-right: auto;
     padding: 0px 15px;
     margin-top: 15px;
-
 }
 .home-button {
     margin-top: 15px;
