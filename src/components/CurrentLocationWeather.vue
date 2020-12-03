@@ -1,6 +1,11 @@
 <template>
     <div class="background-color">
-        <div class="current-weather-details-container">
+
+        <div class="loading-cube" v-if="this.currentLocationWeather === null">
+            <cube-spin/>
+        </div>
+
+        <div class="current-weather-details-container" v-if="this.currentLocationWeather != null">
             <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
             <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
             <div v-if="this.searchLocation">
@@ -18,7 +23,7 @@
             <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
             <p v-if="this.searchLocation != null"><a href='/' class="home-button">Home</a></p>
         </div>
-        <h2 class="select-day-forecast-text">Click on a Date for the Forecast:</h2>
+        <h2 v-if="this.currentLocationWeather != null" class="select-day-forecast-text">Click on a Date for the Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
             <li v-bind:class="{dateClicked: isVisible[index]}" v-for="(item, index) in this.currentLocationWeather.daily" :key="item.dt">
                 <button class="date-button" v-on:click="toggleIsVisible(index)"><a href="#weather-description">{{ convertDateFromTimeStamp(item.dt) }}</a></button>
@@ -37,6 +42,7 @@
 
 import { eventBus } from "../main.js"
 const tzlookup = require("tz-lookup")
+import CubeSpin from '../../node_modules/vue-loading-spinner/src/components/RotateSquare2.vue'
 
 export default {
 
@@ -52,6 +58,10 @@ export default {
             searchLocation: null,
             selectedLocation: "Other locations for this search:"
         }
+    },
+
+    components: {
+      "cube-spin": CubeSpin
     },
 
     methods: {
@@ -221,6 +231,12 @@ export default {
     color:rebeccapurple;
     background-color: white;
     border: solid 1px rebeccapurple;
+}
+.loading-cube {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: fit-content;
 }
 
 </style>
