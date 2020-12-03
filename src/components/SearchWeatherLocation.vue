@@ -15,7 +15,6 @@
 
 <script>
 
-//import apiKey from "../apikey.js"
 import { eventBus } from '../main.js'
 export default {
   name: 'SearchLocation',
@@ -31,8 +30,7 @@ export default {
   },
   methods: {
       submit() {
-            // console.log("weatherkey2", process.env.weatherKey)
-            // console.log("tomtomkey2", process.env.tomTomKey)
+            
             fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.alpha3Code + "&municipalitySubdivision=" + this.searchTerm + "&key=" + process.env.VUE_APP_tomTomKey )
             .then(res => res.json())
             .then(results => {
