@@ -3,13 +3,13 @@
         <div class="current-weather-details-container">
             <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
             <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
-            <div v-if="this.searchLocation">
-                <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
-                    <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
-                    <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
-                </select>
-                
-            </div>
+                <div v-if="this.searchLocation">
+                    <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
+                        <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
+                        <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
+                    </select>
+                    
+                </div>
             <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
             <img :src=this.weatherIcon class="image-fit">
             
@@ -17,7 +17,7 @@
             <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
             <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
             <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
-            <a href='/' class="home-button">Home</a>
+            <p v-if="this.searchLocation != null"><a href='/' class="home-button">Home</a></p>
         </div>
         <h2 class="select-day-forecast-text">Click on a Date for 7 Day Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
