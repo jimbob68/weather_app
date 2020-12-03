@@ -1,11 +1,12 @@
 <template>
     <div class="background-color">
 
-        <div id="app">
-            <cube-spin/>
-        </div>
+       
 
         <div class="current-weather-details-container">
+             <div v-if="this.currentLocationWeather === null">
+                <cube-spin/>
+            </div>
             <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
             <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
             <div v-if="this.searchLocation">
