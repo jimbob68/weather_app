@@ -3,13 +3,13 @@
         <div class="current-weather-details-container">
             <h2 v-if="this.currentLocationDetails != null" class="location-title">The current weather in {{ this.currentLocationDetails.addresses[0].address.municipality }}, {{ this.currentLocationDetails.addresses[0].address.postalCode }} is : </h2>
             <h2 v-if="this.searchLocation != null">The current weather in {{ this.searchLocationName }} is:</h2>
-                <div v-if="this.searchLocation">
-                    <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
-                        <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
-                        <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
-                    </select>
-                    
-                </div>
+            <div v-if="this.searchLocation">
+                <select v-if="this.searchLocation.results.length > 1" v-model="selectedLocation" v-on:change="sublocationWeatherFetch">
+                    <option value="Other locations for this search:" disabled hidden>Other locations for this search:</option>
+                    <option v-for="(location, index) in this.searchLocation.results" v-bind:value="location" v-bind:key="index">{{ location.address.freeformAddress }}</option>
+                </select>
+                
+            </div>
             <h2 v-if="this.currentLocationWeather != null" class="current-weather"> {{ this.currentLocationWeather.current.weather[0].description }}</h2>
             <img :src=this.weatherIcon class="image-fit">
             
@@ -217,6 +217,34 @@ export default {
     background-color:rebeccapurple;
     color: white;
     border: solid 1px ridge;
+    border-radius: 10px;
+    padding: 7px 12px;
+    cursor: pointer;
+    margin-bottom: 50px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+
+    border-radius: 10px;
+    padding: 7px 12px;
+    cursor: pointer;
+    margin-bottom: 50px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+
+    border-radius: 10px;
+    padding: 7px 12px;
+    cursor: pointer;
+    margin-bottom: 50px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+
+    border-radius: 10px;
+    padding: 7px 12px;
+    cursor: pointer;
+    margin-bottom: 50px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+
     border-radius: 10px;
     padding: 7px 12px;
     cursor: pointer;
