@@ -16,7 +16,7 @@
             <h2 v-if="this.currentLocationWeather != null"> Wind Speed: {{ this.currentLocationWeather.current.wind_speed  }}m/s</h2>
             <h2 v-if="this.currentLocationWeather != null"> Sunrise: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunrise) }}</h2>
             <h2 v-if="this.currentLocationWeather != null"> Sunset: {{ this.convertTimeFromTimeStamp(this.currentLocationWeather.current.sunset) }}</h2>
-            <a href='/' class="home-button">Home</a>
+            <p v-if="this.searchLocation != null"><a href='/' class="home-button">Home</a></p>
         </div>
         <h2 class="select-day-forecast-text">Click on a Date for the Forecast:</h2>
         <ul v-if="this.currentLocationWeather != null" :refresh='refresh' class="dates-list">
