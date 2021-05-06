@@ -20,6 +20,6 @@ npm run serve
 
 
  
-https://user-images.githubusercontent.com/56137428/117294745-e9f75900-ae6a-11eb-945d-6a0e56281279.mov
+<video width="500" controls ><source src="https://user-images.githubusercontent.com/56137428/117294745-e9f75900-ae6a-11eb-945d-6a0e56281279.mov" type="video/mov"></video>
 
 
