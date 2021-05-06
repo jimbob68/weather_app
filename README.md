@@ -15,3 +15,7 @@ npm run serve
 ```
 
 <img src="https://user-images.githubusercontent.com/56137428/117291707-3fca0200-ae67-11eb-8d9d-431f32f05e02.png" width="500"/>
+
+<img src="https://user-images.githubusercontent.com/56137428/117292127-b961f000-ae67-11eb-82a3-e4d45092a971.png" width="500"/>
+
+<img src="" width="500"/>
