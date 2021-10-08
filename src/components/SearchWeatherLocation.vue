@@ -3,7 +3,7 @@
         <form @submit.prevent >
             <label class="form-label">Search a country: </label>
             <select v-model="selectedCountry" required>
-                <option v-for="(country, index) in this.countriesData" v-bind:value="country" v-bind:key="index">{{ country.name }}</option>
+                <option v-for="(country, index) in this.countriesData" v-bind:value="country" v-bind:key="index">{{ country.name.common }}</option>
             </select>
             <label class="form-label">Search a location: </label>
             <input v-model="searchTerm" />
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
       submit() {
-            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.alpha3Code + "&municipalitySubdivision=" + this.searchTerm + "&key=" + apiKey.tomTomKey )
+            fetch("https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=" + this.selectedCountry.cca3 + "&municipalitySubdivision=" + this.searchTerm + "&key=" + apiKey.tomTomKey )
             .then(res => res.json())
             .then(results => {
                 this.searchLocationResults = results
@@ -55,9 +55,19 @@ export default {
 
   },
   mounted() {
-      fetch("https://restcountries.eu/rest/v2/all")
+      fetch("https://restcountries.com/v3.1/all")
         .then(res => res.json())
-        .then(results => this.countriesData = results)
+        .then(results => {
+            results.sort((a, b) => {
+                if(a.name.common < b.name.common){
+                    return - 1
+                }
+                if(a.name.common > b.name.common){
+                    return 1
+                }
+                return 0
+            })
+            this.countriesData = results})
   }
 
 }
