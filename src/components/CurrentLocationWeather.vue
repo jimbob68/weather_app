@@ -42,7 +42,6 @@
 
 <script>
 
-// import apiKey from "../apikey.js"
 import { eventBus } from "../main.js"
 import CubeSpin from '../../node_modules/vue-loading-spinner/src/components/RotateSquare2.vue'
 const tzlookup = require("tz-lookup")

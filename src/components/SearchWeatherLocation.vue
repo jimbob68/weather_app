@@ -15,7 +15,6 @@
 
 <script>
 
-// import apiKey from "../apikey.js"
 import { eventBus } from '../main.js'
 export default {
   name: 'SearchLocation',
