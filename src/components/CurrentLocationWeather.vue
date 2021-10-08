@@ -42,7 +42,7 @@
 
 <script>
 
-import apiKey from "../apikey.js"
+// import apiKey from "../apikey.js"
 import { eventBus } from "../main.js"
 import CubeSpin from '../../node_modules/vue-loading-spinner/src/components/RotateSquare2.vue'
 const tzlookup = require("tz-lookup")
@@ -70,7 +70,7 @@ export default {
         getCoordinates() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
-                     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&units=metric&appid=' + apiKey.weatherKey )
+                     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&units=metric&appid=' + process.env.VUE_APP_weatherKey )
                     .then(res => res.json())
                     .then(results => this.currentLocationWeather = results)
                     .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
@@ -84,13 +84,13 @@ export default {
         },
 
         getLocationName(position) {
-            fetch("https://api.tomtom.com/search/2/reverseGeocode/" + position.coords.latitude + "%2C" + position.coords.longitude + ".json?key=" + apiKey.tomTomKey)
+            fetch("https://api.tomtom.com/search/2/reverseGeocode/" + position.coords.latitude + "%2C" + position.coords.longitude + ".json?key=" + process.env.VUE_APP_tomTomKey)
             .then(res => res.json())
             .then(results => this.currentLocationDetails = results)
         },
 
         sublocationWeatherFetch() {
-            fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.selectedLocation.position.lat + '&lon=' + this.selectedLocation.position.lon + '&units=metric&appid=' + apiKey.weatherKey )
+            fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.selectedLocation.position.lat + '&lon=' + this.selectedLocation.position.lon + '&units=metric&appid=' + process.env.VUE_APP_weatherKey )
           .then(res => res.json())
           .then(results => this.currentLocationWeather = results)
           .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
