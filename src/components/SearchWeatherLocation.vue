@@ -15,7 +15,6 @@
 
 <script>
 
-import apiKey from "../apikey.js"
 import { eventBus } from '../main.js'
 export default {
   name: 'SearchLocation',
@@ -46,7 +45,7 @@ export default {
           
       },
       conditionalFetch(){
-          fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + apiKey.weatherKey )
+          fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + this.searchLocationResults.results[0].position.lat + '&lon=' + this.searchLocationResults.results[0].position.lon + '&units=metric&appid=' + process.env.VUE_APP_weatherKey )
           .then(res => res.json())
           .then(results => this.searchLocationWeather = results)
           .then((results) => this.weatherIcon = "http://openweathermap.org/img/wn/" +  results.current.weather[0].icon + "@2x.png")
@@ -100,4 +99,5 @@ export default {
     background-color: white;
     border: solid 1px ridge;
 }
+
 </style>
